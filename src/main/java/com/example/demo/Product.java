@@ -3,10 +3,7 @@ package com.example.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PostPersist;
+import javax.persistence.*;
 
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.MessageChannel;
@@ -21,7 +18,7 @@ public class Product {
     String name;
     int stock;
 
-    @PostPersist
+    @PostPersist @PostUpdate
     public void eventPublish(){
         ProductChanged productChanged = new ProductChanged();
         productChanged.setProductId(this.getId());
