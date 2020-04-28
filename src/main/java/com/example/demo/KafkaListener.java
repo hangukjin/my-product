@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
@@ -30,13 +32,6 @@ public class KafkaListener {
                     )
             ;
 
-            Processor processor = DemoApplication.applicationContext.getBean(Processor.class);
-            MessageChannel outputChannel = processor.output();
-
-            outputChannel.send(MessageBuilder
-                    .withPayload(json)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
             System.out.println("======================");
         }
     }
